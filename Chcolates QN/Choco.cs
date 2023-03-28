@@ -3,88 +3,101 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ColorChocolates
 {
-    internal class Choco
+    internal class QuestionChoco
     {
         public static ArrayList col = new ArrayList();
         public static ArrayList no = new ArrayList();
         public static int green_count = 0, silver_count = 0, crimson_count = 0, purple_count = 0, red_count = 0;
         static void Main(string[] args)
         {
-            int choice = 0;
-            Console.WriteLine("Enter the choice of yours:");
+            int choice = 0; int again_try = 0;
+            do
+            {
+                Console.WriteLine("Enter the choice of yours:");
             choice = Convert.ToInt32(Console.ReadLine());
-            if (choice == 1)
-            {
-                string color = "";
-                int count = 0;
-                Console.WriteLine("Enter the color of Chocolate you want to add:");
-                color = Console.ReadLine();
-                Console.WriteLine($"Enter the No of {color} Chocolate you want to add:");
-                count = Convert.ToInt32(Console.ReadLine());
-                addChocolates(color, count);
+            
+                if (choice == 1)
+                {
+                    string color = "";
+                    int count = 0;
+                    Console.WriteLine("Enter the color of Chocolate you want to add:");
+                    color = Console.ReadLine();
+                    Console.WriteLine($"Enter the No of {color} Chocolate you want to add:");
+                    count = Convert.ToInt32(Console.ReadLine());
+                    addChocolates(color, count);
 
-            }
-            if (choice == 2)
-            {
-                int count = 0;
-                Console.WriteLine($"Enter the No of Chocolate you want to remove:");
-                count = Convert.ToInt32(Console.ReadLine());
-                removeChocolates(count);
-            }
-            if (choice == 3) {
+                }
+                if (choice == 2)
+                {
+                    int count = 0;
+                    Console.WriteLine($"Enter the No of Chocolate you want to remove:");
+                    count = Convert.ToInt32(Console.ReadLine());
+                    removeChocolates(count);
+                }
+                if (choice == 3)
+                {
 
-                int count = 0;
-                Console.WriteLine($"Enter the No of Chocolate you want to add:");
-                count = Convert.ToInt32(Console.ReadLine());
-                dispenseChocolates(count); 
-            }
-            if (choice == 4)
-            {
-                string color = "";
-                int count = 0;
-                Console.WriteLine("Enter the color of Chocolate you want to add:");
-                color = Console.ReadLine();
-                Console.WriteLine($"Enter the No of {color}Chocolate you want to add:");
-                count = Convert.ToInt32(Console.ReadLine());
-                dispenseChocolatesOfColor(color, count);
-            }
-            if (choice == 5) 
-            {
-                noOfChocolates(); 
-            }
-            if (choice == 6) 
-            {
-                sortChocolateBasedOnCount(); 
-            }
-            if (choice == 7) {
-                Console.WriteLine("Enter the color of Chocolate you want to change:");
-                string old_color = Console.ReadLine();
-                Console.WriteLine("Enter the new color of Chocolate you want to add:");
-                string new_color = Console.ReadLine();
-                int count = 0;
-                Console.WriteLine($"Enter the No of Chocolate you want to add:");
-                count = Convert.ToInt32(Console.ReadLine());
-                changeChocolateColor(old_color,new_color,count); 
-            }
-            if (choice == 8) {
-                Console.WriteLine("Enter the color of Chocolate you want to change:");
-                string old_color = Console.ReadLine();
-                Console.WriteLine("Enter the new color of Chocolate you want to add:");
-                string new_color = Console.ReadLine();
-                changeChocolateColorAllOfxCount(old_color,new_color); 
-            }
-            if (choice == 9) {
-                Console.WriteLine("Enter the color of Chocolate you want to remove from top:");
-                string color = Console.ReadLine();
-                removeChocolateOfColor(color); }
-            /*if (choice == 10) { 
-                dispenseRainbowChocolates(); }*/
+                    int count = 0;
+                    Console.WriteLine($"Enter the No of Chocolate you want to add:");
+                    count = Convert.ToInt32(Console.ReadLine());
+                    dispenseChocolates(count);
+                }
+                if (choice == 4)
+                {
+                    string color = "";
+                    int count = 0;
+                    Console.WriteLine("Enter the color of Chocolate you want to add:");
+                    color = Console.ReadLine();
+                    Console.WriteLine($"Enter the No of {color}Chocolate you want to add:");
+                    count = Convert.ToInt32(Console.ReadLine());
+                    dispenseChocolatesOfColor(color, count);
+                }
+                if (choice == 5)
+                {
+                    noOfChocolates();
+                }
+                if (choice == 6)
+                {
+                    sortChocolateBasedOnCount();
+                }
+                if (choice == 7)
+                {
+                    Console.WriteLine("Enter the color of Chocolate you want to change:");
+                    string old_color = Console.ReadLine();
+                    Console.WriteLine("Enter the new color of Chocolate you want to add:");
+                    string new_color = Console.ReadLine();
+                    int count = 0;
+                    Console.WriteLine($"Enter the No of Chocolate you want to add:");
+                    count = Convert.ToInt32(Console.ReadLine());
+                    changeChocolateColor(old_color, new_color, count);
+                }
+                if (choice == 8)
+                {
+                    Console.WriteLine("Enter the color of Chocolate you want to change:");
+                    string old_color = Console.ReadLine();
+                    Console.WriteLine("Enter the new color of Chocolate you want to add:");
+                    string new_color = Console.ReadLine();
+                    changeChocolateColorAllOfxCount(old_color, new_color);
+                }
+                if (choice == 9)
+                {
+                    Console.WriteLine("Enter the color of Chocolate you want to remove from top:");
+                    string color = Console.ReadLine();
+                    removeChocolateOfColor(color);
+                }
+                /*if (choice == 10) { 
+                    dispenseRainbowChocolates(); }*/
+
+                Console.WriteLine("Enter 1 if you want to try other choices");
+                again_try = Convert.ToInt32(Console.ReadLine());
+            } while (again_try == 1);
         }
         static void addChocolates(string color, int count)
         {
@@ -96,7 +109,7 @@ namespace ColorChocolates
         }
         static void removeChocolates(int count)
         {
-            for(int i=col.Count-1; i > (col.Count - count); i--)
+            for(int i=col.Count-1, j=0; i > 0 && j< count ;j++, i--)
             {
                 col.RemoveAt(i);
                 no.RemoveAt(i);
@@ -112,9 +125,9 @@ namespace ColorChocolates
             }
             Console.WriteLine("Dispensed");
         }
-        static void DispenseChocolateOfColor(string color, int count)
+        static void dispenseChocolatesOfColor(string color, int count)
         {
-            for(int i = 0,j=0; i < col.Length && j<count ; i++,j++)
+            for(int i = 0,j=0; i < col.Count && j<count ; i++,j++)
             {
                 if (col[i] == color)
                 {
@@ -129,7 +142,7 @@ namespace ColorChocolates
             
             for (int i = 0; i < col.Count; i++)
             {
-                string str = col[i];
+                string str = (string)col[i];
                
                 if ((str.ToLower()).Equals("green"))
                 {
@@ -159,33 +172,33 @@ namespace ColorChocolates
             noOfChocolates();
             if(green_count>=silver_count && green_count>=crimson_count && green_count>=purple_count && green_count>= red_count)
             {
-                Console.WriteLine($"Green:{green_count}")
+                Console.WriteLine($"Green:{green_count}");
             }
             if (green_count <= silver_count && silver_count >= crimson_count && silver_count >= purple_count && silver_count >= red_count)
             {
-                Console.WriteLine($"Silver:{silver_count}")
+                Console.WriteLine($"Silver:{silver_count}");
             }
             if (crimson_count >= green_count && silver_count <= crimson_count && crimson_count >= purple_count && crimson_count >= red_count)
             {
-                Console.WriteLine($"Crimson:{crimson_count}")
+                Console.WriteLine($"Crimson:{crimson_count}");
             }
             if (green_count <= purple_count && purple_count >= crimson_count && silver_count <= purple_count && purple_count >= red_count)
             {
-                Console.WriteLine($"Purple:{purple_count}")
+                Console.WriteLine($"Purple:{purple_count}");
             }
             if (green_count <= red_count && red_count >= crimson_count && silver_count <= red_count && purple_count <= red_count)
             {
-                Console.WriteLine($"Red:{red_count}")
+                Console.WriteLine($"Red:{red_count}");
             }
         }
-        static void changeChocolateColor(strinng old_color,string new_color,int count)
+        static void changeChocolateColor(string old_color,string new_color,int count)
         {
             noOfChocolates();
             if (old_color == new_color) { }
             if (old_color != new_color)
             {
                 if (old_color == "green" && count <= green_count) {
-                    for (int i = 0,j=0,j<count && i< col.Count; j++,i++)
+                    for (int i = 0,j=0; j < count && i< col.Count; j++,i++)
                     {
                         if (col[i] == "green")
                         {
@@ -196,7 +209,7 @@ namespace ColorChocolates
                 }
                 if (old_color == "silver" && count <= silver_count)
                 {
-                    for (int i = 0,j=0,j<count && i< col.Count;j++, i++)
+                    for (int i = 0,j=0; j<count && i< col.Count;j++, i++)
                     {
                         if (col[i] == "silver")
                         {
@@ -209,7 +222,7 @@ namespace ColorChocolates
 
                 if (old_color == "crimson" && count <= crimson_count)
                 {
-                    for (int i = 0, j=0 ,j<count && i< col.Count; j++, i++)
+                    for (int i = 0, j=0; j<count && i< col.Count; j++, i++)
                     {
                         if (col[i] == "crimson")
                         {
@@ -219,9 +232,9 @@ namespace ColorChocolates
 
                     }
                 }
-                if (old_color == "purple" && count <= purpler_count)
+                if (old_color == "purple" && count <= purple_count)
                 {
-                    for (int i = 0, j=0 ,j<count && i< col.Count; j++ ,i++)
+                    for (int i = 0, j=0;  j<count && i< col.Count; j++ ,i++)
                     {
                         if (col[i] == "purple")
                         {
@@ -233,7 +246,7 @@ namespace ColorChocolates
                 }
                 if (old_color == "red" && count <= red_count)
                 {
-                    for (int i = 0 , j=0 , j< count && i< col.Count; j++, i++)
+                    for (int i = 0 , j=0; j< count && i< col.Count; j++, i++)
                     {
                         if (col[i] == "red")
                         {
@@ -249,7 +262,7 @@ namespace ColorChocolates
         static void changeChocolateColorAllOfxCount(string old_color,string new_color)
         {
             if (old_color == "green" ) {
-                    for (int i = 0, i< col.Count ; i++)
+                    for (int i = 0; i < col.Count ; i++)
                     {
                         if (col[i] == "green")
                         {
@@ -260,7 +273,7 @@ namespace ColorChocolates
                 }
                 if (old_color == "silver")
                 {
-                    for (int i = 0, i< col.Count; i++)
+                    for (int i = 0;  i< col.Count; i++)
                     {
                         if (col[i] == "silver")
                         {
@@ -273,7 +286,7 @@ namespace ColorChocolates
 
                 if (old_color == "crimson" )
                 {
-                    for (int i = 0, i< col.Count; i++)
+                    for (int i = 0; i< col.Count; i++)
                     {
                         if (col[i] == "crimson")
                         {
@@ -285,7 +298,7 @@ namespace ColorChocolates
                 }
                 if (old_color == "purple")
                 {
-                    for (int i = 0, i< col.Count; i++)
+                    for (int i = 0; i< col.Count; i++)
                     {
                         if (col[i] == "purple")
                         {
@@ -297,7 +310,7 @@ namespace ColorChocolates
                 }
                 if (old_color == "red")
                 {
-                    for (int i = 0, i< col.Count; i++)
+                    for (int i = 0;  i < col.Count; i++)
                     {
                         if (col[i] == "red")
                         {
